@@ -8,7 +8,7 @@ import Footer from "../component/Footer";
 
 const Home = () => {
   return (
-    <div">
+    <div>
       <Nav />
       <Trend />
       <Reasons />
