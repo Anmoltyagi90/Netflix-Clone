@@ -28,59 +28,60 @@ const Trend = () => {
 
   const scroll = (dir) => {
     const container = scrollRef.current;
-    const cardWidth = 220; 
+
+    const scrollAmount = container.clientWidth * 0.8; // responsive scroll
 
     container.scrollBy({
-      left: dir === "left" ? -cardWidth * 3 : cardWidth * 3,
+      left: dir === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
     });
   };
 
   return (
-    <div className="bg-black text-white py-10 px-6 relative">
-
-      <h1 className="font-bold text-2xl mb-6">Trending Now</h1>
+    <div className="bg-black text-white py-8 px-4 sm:px-6 relative">
+      <h1 className="font-bold text-xl sm:text-2xl mb-4 sm:mb-6">
+        Trending Now
+      </h1>
 
       <button
         onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black p-3 rounded-full"
+        className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black p-2 rounded-full"
       >
-        <ChevronLeft size={28} />
+        <ChevronLeft size={24} />
       </button>
 
       <button
         onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black p-3 rounded-full"
+        className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-black p-2 rounded-full"
       >
-        <ChevronRight size={28} />
+        <ChevronRight size={24} />
       </button>
 
-      <div className="overflow-hidden">
-        
-        <div
-          ref={scrollRef}
-          className="flex gap-6 scroll-smooth"
-        >
+      <div className="overflow-x-auto scrollbar-hide">
+        <div ref={scrollRef} className="flex gap-4 sm:gap-6 scroll-smooth">
           {movies.map((img, i) => (
             <div
               key={i}
-              className="relative min-w-[200px] h-[280px] flex-shrink-0"
+              className="relative min-w-[140px] sm:min-w-[180px] md:min-w-[200px] 
+                         h-[200px] sm:h-[250px] md:h-[280px] flex-shrink-0"
             >
-              <span className="absolute left-[-20px] bottom-0 text-[120px] font-extrabold text-white/90 z-10 text-stroke-white">
+              <span
+                className="absolute left-[-10px] sm:left-[-15px] bottom-0 
+                               text-[60px] sm:text-[90px] md:text-[120px] 
+                               font-extrabold text-white/90 z-10"
+              >
                 {i + 1}
               </span>
 
-              <div className="w-full h-full rounded-xl overflow-hidden hover:scale-105 transition duration-300">
-                <img
-                  src={img}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+              <div
+                className="w-full h-full rounded-xl overflow-hidden 
+                              hover:scale-105 transition duration-300"
+              >
+                <img src={img} alt="" className="w-full h-full object-cover" />
               </div>
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );
